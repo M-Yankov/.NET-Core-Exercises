@@ -1,0 +1,35 @@
+﻿@model CustomerDetails
+
+@{
+    ViewData["Title"] = "Customer details";
+}
+
+
+@if (this.Model == null)
+{
+    <h2 class="text-danger"> 404 NOT Found</h2>
+}
+
+
+<h2>Customer Details</h2>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th> Name</th>
+        <td> @this.Model.Name</td>
+    </tr>
+
+    <tr>
+        <th> Cars Bought </th>
+        <td>@this.Model.CarsBought</td>
+    </tr>
+    <tr>
+        <th> Money spend</th>
+        <td>@this.Model.TotalSpentMoney</td>
+    </tr>
+    <tr>
+        <th>Options</th>
+        <td><a asp-area="" asp-controller="Customers" asp-action="Edit" asp-route-id="@this.Model.Id" class="btn btn-info">Edit</a></td>
+    </tr>
+</table>

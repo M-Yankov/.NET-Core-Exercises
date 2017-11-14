@@ -1,0 +1,46 @@
+﻿@model SaleReviewModel
+@{
+    this.ViewData["Title"] = "Review Sale";
+}
+
+
+<h4>Review Sale</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddSale">
+
+            <input type="hidden" asp-for="CarId" />
+            <input type="hidden" asp-for="CustomerId" />
+            <input type="hidden" asp-for="TotalDiscount" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label> :
+                @Html.DisplayFor(model => model.CustomerName)
+            </div>
+            <div class="form-group">
+                <label asp-for="CarDetails" class="control-label"></label> :
+                @Html.DisplayFor(model => model.CarDetails)
+            </div>
+            <div class="form-group">
+                <label asp-for="CalculatedDiscountText" class="control-label"></label> :
+                @Html.DisplayFor(model => model.CalculatedDiscountText)
+            </div>
+            <div class="form-group">
+                <label asp-for="CarPrice" class="control-label"></label> :
+                @Html.DisplayFor(model => model.CarPrice)
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FinalCarPrice" class="control-label"></label> :
+                @Html.DisplayFor(model => model.FinalCarPrice)
+            </div>
+            <div class="form-group">
+                <a asp-area="" asp-action="Add" class="btn btn-default">Cancel</a>
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

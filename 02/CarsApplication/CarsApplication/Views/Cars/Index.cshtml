@@ -1,0 +1,24 @@
+﻿@model IEnumerable<CarModel>
+
+@{
+    this.ViewData["PageTitle"] = "Cars";
+}
+
+
+<h2 class="text-info">Cars</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Distance travelled</th>
+    </tr>
+    @foreach (CarModel car in this.Model)
+    {
+    <tr>
+        <td>@car.Make</td>
+        <td>@car.Model</td>
+        <td>@car.DistanceTravelled</td>
+     </tr>
+    }
+</table>

@@ -1,0 +1,45 @@
+﻿@model PartHelperModel
+@{
+    this.ViewData["Title"] = "Add - part";
+}
+
+<div class="row">
+    <form  method="post">
+        <h2>Create a part</h2>
+
+        <div class="form-group">
+            <label asp-for="Part.Name"></label>
+            <input asp-for="Part.Name" class="form-control" />
+            <span asp-validation-for="Part.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Part.Price"></label>
+            <input  asp-for="Part.Price" min="0" class="form-control" />
+            <span asp-validation-for="Part.Price"  class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Part.Quantity"></label>
+            <input asp-for="Part.Quantity" min="1" value="1" type="number" class="form-control" />
+            <span asp-validation-for="Part.Quantity"  class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Part.SupplierId"></label>
+            <select asp-for="Part.SupplierId">
+                @foreach (var supplier in this.Model.Suppliers)
+                {
+                    <option value="@supplier.Id">@supplier.Name</option>
+                }
+            </select>
+            <span asp-validation-for="Part.SupplierId"  class="text-danger"></span>
+        </div>
+
+
+
+        <input type="submit"  value="Submit" class="btn btn-default" />
+    </form>
+</div>
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

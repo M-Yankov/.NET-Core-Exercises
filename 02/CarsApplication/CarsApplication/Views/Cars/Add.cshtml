@@ -1,0 +1,51 @@
+﻿@model CarHelperModel
+@{
+    this.ViewData["Title"] = "Add a car";
+}
+
+<div class="row">
+
+    <form method="post">
+
+        <h2>Add a car</h2>
+
+        <div class="form-group">
+            <label asp-for="Car.Make"></label>
+            <select asp-for="Car.Make" class="form-control">
+                @foreach (string make in this.Model.MakeCollection)
+                {
+                    <option value="@make">@make</option>
+                }
+            </select>
+
+            <span asp-validation-for="Car.Make" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Car.Model"></label>
+            <input asp-for="Car.Model" class="form-control" />
+            <span asp-validation-for="Car.Model" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Car.TravveledDistance"></label>
+            <input asp-for="Car.TravveledDistance" class="form-control" />
+            <span asp-validation-for="Car.TravveledDistance" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            @foreach (var part in this.Model.Parts)
+            {
+               <label> @part.Name  <span class="label label-primary">@part.Price.ToString("C2")</span>
+                   <input type="checkbox" value="@part.Id" name="Car.Parts"/>
+               </label>
+            }
+        </div>
+
+
+        <input type="submit" value="Add" class="btn btn-success" />
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<PartSingleModel>
+  
+@{
+    this.ViewData["Title"] = "Parts";
+}
+
+<div class="row">
+    <table class="table table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Supplier</th>
+        </tr>
+
+        @foreach (PartSingleModel part in this.Model)
+        {
+            <tr>
+                <td>@part.Name</td>
+                <td>@part.Price.ToString("C2")</td>
+                <td>@part.SupplierName</td>
+                <td>
+                    <a asp-action="Edit" asp-area="" asp-route-id="@part.Id" asp-controller="Parts" class="btn btn-warning">Edit</a>
+                        <input type="submit" value="Delete"  class="btn btn-danger" data-toggle="modal" data-name="@part.Name" data-value="@part.Id" data-target="#deleteModal"/>
+                    @*<form asp-action="Delete" method="post" class="delete-part">
+                    </form>*@
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document.body).on('show.bs.modal', '#deleteModal', function (event) {
+            var button = $(event.relatedTarget);
+            var partId = button.data('value');
+            var partName = button.data('name');
+
+            var modal = $(this);
+            modal.find('.modal-body .part-name').text(partName);
+            modal.find('.modal-body .part-id').val(partId);
+            modal.find('form').attr('action', '/Parts/Delete/' + partId);
+        });
+
+    </script>
+}
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmationWindow">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form asp-action="Delete" method="post" class="delete-part">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="confirmationWindow">Delete Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete part <span class="part-name label label-info" ></span>?
+                    <input type="hidden" class="part-id" name="id" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

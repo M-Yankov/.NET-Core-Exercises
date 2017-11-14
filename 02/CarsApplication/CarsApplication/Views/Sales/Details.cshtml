@@ -1,0 +1,18 @@
+﻿@model SaleModel
+@{
+    this.ViewData["Title"] = "Sale Details";
+}
+
+<h2 class="text-info">Sale Details</h2>
+
+<dl>
+    <dt>Car</dt>
+    <dd>@this.Model.Car.Make  @this.Model.Car.Model </dd>
+</dl>
+
+<div class="container">
+    <b>Customer Name</b>
+    <span class="label label-info">
+        @this.Model.CustomerName
+    </span>
+</div>

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CustomerModel>
+
+   @{
+       ViewData["Title"]= "Customers";
+    }
+<h2 class="text-primary">Customers</h2>
+<table class="table table-bordered" >
+    <tr>
+        <th>
+           Name 
+        </th>
+        <th>
+            Date of birth
+        </th>
+        <th>
+            Is young driver
+        </th>
+        <th>Options</th>
+    </tr>
+    @foreach (CustomerModel customer in this.Model)
+    {
+        <tr>
+            <td>@customer.Name</td>
+            <td>@customer.BirthDate.ToString("dd MMM yyyy")</td>
+            <td>@customer.IsYoungDriver.YesNo()</td>
+            <td>
+                <a asp-area="" asp-controller="Customers" asp-action="" asp-route-id="@customer.Id" class="btn btn-info">Details</a>
+                <a asp-area="" asp-controller="Customers" asp-action="Edit" asp-route-id="@customer.Id" class="btn btn-warning">Edit</a>
+            </td>
+        </tr>
+    }
+</table>

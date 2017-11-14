@@ -1,0 +1,29 @@
+﻿@model IEnumerable<SaleModel>
+@{
+    this.ViewData["Title"] = "Discounted";
+}
+
+<h2 class="text-primary">Discounted</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Car</th>
+        <th>Customer</th>
+        <th>Price</th>
+        <th>Price with discount</th>
+        <th>Discount %</th>
+    </tr>
+
+    @foreach (SaleModel sale in this.Model)
+    {
+        <tr>
+            <td>( @sale.Car.Make @sale.Car.Make @sale.Car.DistanceTravelled )</td>
+            <td>@sale.CustomerName</td>
+            <td>@sale.Price.ToString("C2")</td>
+            <td>@sale.SalePriceWithDiscount.ToString("C2")</td>
+            <td>
+                @sale.DiscontPercentage.ToString("P0")
+        </td>
+    </tr>
+    }
+</table>

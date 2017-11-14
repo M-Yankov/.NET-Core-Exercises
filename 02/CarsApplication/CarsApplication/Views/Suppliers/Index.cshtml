@@ -1,0 +1,25 @@
+﻿@model IEnumerable<SupplierModel>
+@{
+    ViewData["PageTitle"] = "Suppliers";
+}
+
+<h2>Suppliers </h2>
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Parts Count</th>
+    </tr>
+
+    @foreach (SupplierModel supplier in this.Model)
+    {
+
+    <tr>
+        <td>@supplier.Id</td>
+        <td>@supplier.Name</td>
+        <td>@supplier.CountOfParts</td>
+    </tr>
+    }
+</table>
