@@ -21,6 +21,8 @@
 
         public DbSet<Part> Parts { get; set; }
 
+        public DbSet<Log> Logs { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -53,6 +55,11 @@
                 .HasOne(pc => pc.Part)
                 .WithMany(c => c.PartCars)
                 .HasForeignKey(pc => pc.PartId);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(u => u.Logs)
+                .WithOne(l => l.User)
+                .HasForeignKey(l => l.UserId);
 
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.

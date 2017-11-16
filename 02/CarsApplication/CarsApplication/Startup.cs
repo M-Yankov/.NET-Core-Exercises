@@ -2,6 +2,7 @@
 {
     using Data;
     using Data.Models;
+    using CarsApplication.Loggers.ApplicationDbLogger;
     using Services.Contracts;
     using Services.Implementations;
 
@@ -11,12 +12,14 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using System;
 
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -38,20 +41,20 @@
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            
 
             // Add application services.
             // services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<ICarService, CarService>();
-            services.AddTransient<ISuppliersService, SuppliersService>();
-            services.AddTransient<ISalesService, SalesService>();
-            services.AddTransient<IPartService, PartService>();
+            services.AddTransient<ICustomerService, CustomerService>()
+                    .AddTransient<ICarService, CarService>()
+                    .AddTransient<ISuppliersService, SuppliersService>()
+                    .AddTransient<ISalesService, SalesService>()
+                    .AddTransient<IPartService, PartService>();
+
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -63,6 +66,12 @@
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>();
+            
+            loggerFactory.AddConsole()
+                         .AddDebug()
+                         .AddDatabaseLogger(dbContext);
 
             app.UseStaticFiles();
             app.UseAuthentication();
