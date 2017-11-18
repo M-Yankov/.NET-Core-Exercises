@@ -1,0 +1,96 @@
+﻿@model CarsApplication.Models.Logs.LogViewModel
+
+@{
+    ViewData["Title"] = "All Logs";
+}
+
+@{
+    string previousPageClass = this.Model.CurrentPage <= 1 ? "disabled" : string.Empty;
+    string nextPageClass = this.Model.CurrentPage >= this.Model.Allpages ? "disabled" : string.Empty;
+
+    List<int> pages = new List<int>();
+    if (this.Model.CurrentPage > 1)
+    {
+        pages.Add(this.Model.CurrentPage - 1);
+    }
+
+    pages.Add(this.Model.CurrentPage);
+
+    if (this.Model.CurrentPage < this.Model.Allpages)
+    {
+        pages.Add(this.Model.CurrentPage + 1);
+    }
+}
+
+<h2>All</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="get">
+            <div class="col-md-10">
+                <input type="text" name="username" placeholder="Username..." class="form-control" value="@this.Model.Username" />
+            </div>
+            <div class="col-md-2">
+            <input type="submit"  value="Search"  class="btn btn-success"/>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="pull-right">
+            <form method="post" asp-action="Delete"> 
+                <input type="submit" value="Clear all" class="btn btn-warning" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <h2>Data</h2>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+                <th>
+                    Username
+                </th>
+            <th>Operation</th>
+            <th>Tables modified</th>
+            <th>Date logged</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Items) {
+        <tr>
+            <td>
+                @item.UserName
+            </td>
+            <td>
+                @item.OperationName
+            </td>
+            <td>
+                @item.TablesModified
+            </td>
+            <td>
+                @item.DateLogged.ToString("dd/MMM/yyyy")
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item @(previousPageClass)">
+            <a class="page-link" asp-area="" asp-action="All" asp-route-username="@(this.Model.Username)" asp-route-page="@(this.Model.CurrentPage - 1)" >Previous</a>
+        </li>
+        @foreach (var thepage in pages)
+        {
+        <li class="page-item @(thepage == this.Model.CurrentPage ?  "active" : string.Empty)"><a class="page-link"  asp-area="" asp-action="All" asp-route-username="@(this.Model.Username)"  asp-route-page="@thepage">@thepage</a></li>
+
+        }
+        <li class="page-item @(nextPageClass)">
+            <a class="page-link" asp-area="" asp-action="All" asp-route-username="@(this.Model.Username)" asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
+        </li>
+    </ul>
+</nav>
