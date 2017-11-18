@@ -1,15 +1,13 @@
-﻿using CarsApplication.Data;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using CarsApplication.Data.Models;
-using Microsoft.AspNetCore.Identity;
-
-namespace CarsApplication.Loggers.Filters
+﻿namespace CarsApplication.Loggers.Filters
 {
+    using System;
+    using System.Linq;
+
+    using CarsApplication.Data;
+    using CarsApplication.Data.Models;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using Microsoft.Extensions.DependencyInjection;
+
     /// <summary>
     /// Recommended usage with attribute [Authorize]
     /// </summary>
@@ -34,6 +32,12 @@ namespace CarsApplication.Loggers.Filters
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
+            if (context.Canceled || context.Exception != null)
+            {
+                base.OnActionExecuted(context);
+                return;
+            }
+
             bool? isAuthenticated = context?.HttpContext?.User?.Identity.IsAuthenticated;
             if (isAuthenticated.HasValue && isAuthenticated.Value == true)
             {

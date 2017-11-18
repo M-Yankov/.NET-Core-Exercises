@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace CarsApplication.Controllers
+﻿namespace CarsApplication.Controllers
 {
+    using System;
+
+    using Microsoft.AspNetCore.Mvc;
     using CarsApplication.Models.Logs;
     using Services.Contracts;
 
