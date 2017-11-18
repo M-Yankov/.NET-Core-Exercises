@@ -33,3 +33,7 @@
         display: none;
     }
 }
+
+li.disabled a {
+    pointer-events: none;
+}
