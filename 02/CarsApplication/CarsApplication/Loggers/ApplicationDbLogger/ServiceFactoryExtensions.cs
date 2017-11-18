@@ -5,9 +5,9 @@
 
     public static class ServiceFactoryExtensions
     {
-        public static ILoggerFactory AddDatabaseLogger(this ILoggerFactory factory, ApplicationDbContext dbContext)
+        public static ILoggerFactory AddDatabaseLogger(this ILoggerFactory factory, ApplicationDbContext dbContext, System.IServiceProvider serviceProvider)
         {
-            factory.AddProvider(new DatabaseLoggerProvider(dbContext));
+            factory.AddProvider(new DatabaseLoggerProvider(dbContext, serviceProvider));
             return factory;
         }
     }
