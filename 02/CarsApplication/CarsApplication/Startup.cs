@@ -1,8 +1,9 @@
 ﻿namespace CarsApplication
 {
+    using System;
+
     using Data;
     using Data.Models;
-    using CarsApplication.Loggers.ApplicationDbLogger;
     using Services.Contracts;
     using Services.Implementations;
 
@@ -13,7 +14,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using System;
 
     public class Startup
     {
@@ -48,6 +48,7 @@
                     .AddTransient<ICarService, CarService>()
                     .AddTransient<ISuppliersService, SuppliersService>()
                     .AddTransient<ISalesService, SalesService>()
+                    .AddTransient<ILogService, LogService>()
                     .AddTransient<IPartService, PartService>();
 
             services.AddMvc();
@@ -67,11 +68,9 @@
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>();
+            // ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>();
             
-            loggerFactory.AddConsole()
-                         .AddDebug()
-                         .AddDatabaseLogger(dbContext);
+            // loggerFactory.AddDatabaseLogger(dbContext, serviceProvider);
 
             app.UseStaticFiles();
             app.UseAuthentication();
