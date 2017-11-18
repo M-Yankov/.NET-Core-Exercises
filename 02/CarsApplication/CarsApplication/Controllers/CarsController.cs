@@ -1,11 +1,12 @@
 ﻿namespace CarsApplication.Controllers
 {
-    using System.Collections.Generic;
+    using CarsApplication.Loggers.Filters;
     using CarsApplication.Models.Cars;
     using CarsApplication.Services.Contracts;
     using CarsApplication.Services.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System.Collections.Generic;
 
     public class CarsController : Controller
     {
@@ -40,6 +41,7 @@
 
         [Authorize]
         [HttpPost("[controller]/[action]")]
+        [Log(OperationName = OperationContsants.Add, TablesToBeModified = new[] { "Cars", "PartCars" })]
         public IActionResult Add(CarHelperModel model)
         {
             if (!this.ModelState.IsValid)

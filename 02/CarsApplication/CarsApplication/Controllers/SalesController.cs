@@ -1,11 +1,12 @@
 ﻿namespace CarsApplication.Controllers
 {
-    using System.Collections.Generic;
+    using CarsApplication.Loggers.Filters;
     using CarsApplication.Models.Sales;
     using CarsApplication.Services.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Services.Contracts;
+    using System.Collections.Generic;
 
     public class SalesController : Controller
     {
@@ -56,10 +57,9 @@
         [Route("[controller]/[action]")]
         public IActionResult Add()
         {
-            var model = new AddSaleModel();
+            AddSaleModel model = new AddSaleModel();
             model.AllCars = this.carService.GetAll();
             model.AllCustomers = this.customerService.GetAll(OrderType.Ascending);
-
             return this.View(model);
         }
 
@@ -77,6 +77,7 @@
         /// </summary>
         [Authorize]
         [HttpPost("[controller]/[action]")]
+        [Log(OperationName = OperationContsants.Add, TablesToBeModified = new[] { "Sales" })]
         public IActionResult AddSale(AddSaleModel addSale)
         {
             int saleId = this.salesService.AddSale(addSale.CarId, addSale.CustomerId, addSale.Discount);

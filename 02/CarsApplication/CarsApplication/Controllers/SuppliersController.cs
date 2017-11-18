@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Services.Contracts;
     using Services.Models;
+    using CarsApplication.Loggers.Filters;
 
     public class SuppliersController : Controller
     {
@@ -33,6 +34,7 @@
 
         [Authorize]
         [HttpPost(RouteValue)]
+        [Log(OperationName = OperationContsants.Add, TablesToBeModified = new[] { "Suppliers" })]
         public IActionResult Add(Models.Suppliers.SupplierInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -56,6 +58,7 @@
 
         [Authorize]
         [HttpPost(RouteValueWithId)]
+        [Log(OperationName = OperationContsants.Edit, TablesToBeModified = new[] { "Suppliers" })]
         public IActionResult Edit(int id, Models.Suppliers.SupplierInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -68,9 +71,10 @@
             return this.RedirectToAction(nameof(All));
 
         }
-
+        
         [Authorize]
         [HttpPost(RouteValueWithId)]
+        [Log(OperationName = OperationContsants.Delete, TablesToBeModified = new[] { "Suppliers", "Part" })]
         public IActionResult Delete(int id)
         {
             this.suppliersService.Delete(id);
