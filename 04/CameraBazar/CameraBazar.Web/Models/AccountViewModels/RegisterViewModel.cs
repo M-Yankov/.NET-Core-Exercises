@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CameraBazar.Web.Models.AccountViewModels
+﻿namespace CameraBazar.Web.Models.AccountViewModels
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class RegisterViewModel
     {
+        [Required]
+        public string Username { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
