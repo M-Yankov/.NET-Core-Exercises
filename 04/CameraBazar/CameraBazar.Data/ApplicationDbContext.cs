@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
 
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

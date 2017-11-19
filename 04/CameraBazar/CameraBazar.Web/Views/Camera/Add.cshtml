@@ -1,0 +1,118 @@
+﻿@model CameraBazar.Web.Models.CameraViewModels.InputCameraModel
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2 class="text-center">Add Camera</h2>
+            <form asp-action="Add">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <label asp-for="Make" class="control-label pull-right"></label>
+                        </div>
+                        <div class="col-md-8">
+                            <select asp-for="Make" asp-items="this.ViewBag.Items" class="form-control" ></select>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <span asp-validation-for="Make" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label asp-for="CameraModel" class="control-label pull-right"></label>
+
+                        </div>
+                        <div class="col-md-8">
+                            <input asp-for="CameraModel" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <span asp-validation-for="CameraModel" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MinShutterSpeed" class="control-label"></label>
+                    <input asp-for="MinShutterSpeed" class="form-control" />
+                    <span asp-validation-for="MinShutterSpeed" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MaxShutterSpeed" class="control-label"></label>
+                    <input asp-for="MaxShutterSpeed" class="form-control" />
+                    <span asp-validation-for="MaxShutterSpeed" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MinISO" class="control-label"></label>
+                    <input asp-for="MinISO" class="form-control" />
+                    <span asp-validation-for="MinISO" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MaxISO" class="control-label"></label>
+                    <input asp-for="MaxISO" class="form-control" />
+                    <span asp-validation-for="MaxISO" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="radio">
+                        <label><input type="radio" value="true"  name="IsFullFrame" /> Yes</label>
+                        <label><input type="radio" value="False" name="IsFullFrame"  /> No</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VideoResolution" class="control-label"></label>
+                    <input asp-for="VideoResolution" class="form-control" />
+                    <span asp-validation-for="VideoResolution" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="LightMeterings" value="@((int)CameraBazar.Data.Enums.LightMetering.Spot)" />Spot</label>
+                        <label><input type="checkbox" name="LightMeterings" value="@((int)CameraBazar.Data.Enums.LightMetering.CenterWeighted)" />Center-Weighted</label>
+                        <label><input type="checkbox" name="LightMeterings" value="@((int)CameraBazar.Data.Enums.LightMetering.Evaluative)" />Evaluate</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control" ></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl" class="control-label"></label>
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
