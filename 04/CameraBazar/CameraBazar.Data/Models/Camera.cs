@@ -33,7 +33,7 @@
         [Range(DataModelConstants.MinISOSpeerdLowerBoundary, DataModelConstants.MinISOSpeerdUpperBoundary)]
         public int MinISO { get; set; }
 
-        [DevidableBy(DevidableValue = 100)]
+        [DividableByAttribute(DividableValue = 100)]
         [Range(DataModelConstants.MaxISOSpeerdLowerBoundary, DataModelConstants.MaxISOSpeerdUpperBoundary)]
         public int MaxISO { get; set; }
 
